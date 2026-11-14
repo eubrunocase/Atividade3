@@ -1,0 +1,21 @@
+<div class="accordion">
+  @for (item of items(); track item.title; let index = $index) {
+    <div class="accordion-item" [class.is-open]="openIndex() === index">
+      <button
+        type="button"
+        class="accordion-trigger"
+        [attr.aria-expanded]="openIndex() === index"
+        [attr.aria-controls]="'accordion-panel-' + index"
+        (click)="toggle(index)"
+      >
+        <span>{{ item.title }}</span>
+        <span class="accordion-icon" aria-hidden="true"></span>
+      </button>
+      <div class="accordion-panel" [id]="'accordion-panel-' + index">
+        <div class="accordion-panel-content">
+          <p>{{ item.content }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

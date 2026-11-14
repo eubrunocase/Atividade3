@@ -1,0 +1,64 @@
+:root {
+  --ink: #142c35;
+  --ink-soft: #52676f;
+  --ocean: #0e6b6f;
+  --ocean-deep: #0a4e52;
+  --coral: #ee7a53;
+  --coral-deep: #d95f38;
+  --sand: #f6f1e7;
+  --cream: #fffdf8;
+  --line: #e4ddd0;
+  --success: #2f7d5b;
+  --danger: #b7473f;
+  --info: #2c6e9b;
+  --shadow: 0 18px 45px rgba(20, 44, 53, 0.09);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --max-width: 1140px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  font-family: 'Avenir Next', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 4%, rgba(238, 122, 83, 0.12), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(14, 107, 111, 0.1), transparent 32rem),
+    var(--sand);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(238, 122, 83, 0.55);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(238, 122, 83, 0.25);
+}

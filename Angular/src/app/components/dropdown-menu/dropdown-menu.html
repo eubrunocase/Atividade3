@@ -1,0 +1,29 @@
+<div class="dropdown">
+  <button
+    type="button"
+    class="dropdown-trigger"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggle()"
+  >
+    <span>{{ label() }}</span>
+    <span class="dropdown-arrow" aria-hidden="true"></span>
+  </button>
+
+  @if (isOpen()) {
+    <ul class="dropdown-list" role="listbox">
+      @for (option of options(); track option.value) {
+        <li>
+          <button
+            type="button"
+            class="dropdown-option"
+            role="option"
+            (click)="selectOption(option)"
+          >
+            {{ option.label }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

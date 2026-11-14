@@ -1,0 +1,177 @@
+<div class="page-shell">
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">FS</span>
+      <span class="brand-name">Fit<span>Salvador</span></span>
+    </div>
+    <div class="header-location">
+      <span class="location-dot" aria-hidden="true"></span>
+      Salvador, BA
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Reservas de academia em Salvador</p>
+        <h1>Seu próximo treino começa <span>aqui.</span></h1>
+        <p class="hero-text">
+          Encontre academias em bairros de Salvador, compare estruturas e reserve sua aula em
+          poucos cliques.
+        </p>
+        <div class="hero-stats">
+          <div>
+            <strong>9</strong>
+            <span>academias parceiras</span>
+          </div>
+          <div>
+            <strong>9</strong>
+            <span>bairros atendidos</span>
+          </div>
+          <div>
+            <strong>45–60</strong>
+            <span>minutos por aula</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-ticket" aria-hidden="true">
+        <div class="ticket-top">
+          <span class="ticket-dot"></span>
+          Reserva confirmada
+        </div>
+        <p class="ticket-gym">Farol Fit</p>
+        <div class="ticket-row">
+          <span>Barra · Salvador</span>
+          <strong>19h</strong>
+        </div>
+        <div class="ticket-divider"></div>
+        <div class="ticket-footer">
+          <span>Funcional</span>
+          <span>50 min</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Academias parceiras</p>
+          <h2>Escolha onde treinar</h2>
+        </div>
+        <p class="section-note">{{ filteredGyms().length }} resultados</p>
+      </div>
+
+      <div class="catalog-toolbar">
+        <label class="search-field">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input
+            type="search"
+            name="academySearch"
+            placeholder="Buscar academia ou bairro"
+            aria-label="Buscar academia ou bairro"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange($event)"
+          />
+        </label>
+
+        <app-dropdown-menu
+          class="catalog-filter"
+          [label]="dropdownLabel()"
+          [options]="neighborhoodOptions()"
+          (optionSelected)="selectNeighborhood($event)"
+        ></app-dropdown-menu>
+      </div>
+
+      @if (pagedGyms().length > 0) {
+        <div class="gym-grid">
+          @for (gym of pagedGyms(); track gym.id) {
+            <article class="gym-card" [class.is-selected]="gym.id === selectedGym().id">
+              <div class="gym-card-header">
+                <span class="gym-neighborhood">{{ gym.neighborhood }}</span>
+                <span class="gym-rating">★ {{ gym.rating | rating }}</span>
+              </div>
+              <h3>{{ gym.name }}</h3>
+              <p class="gym-description">{{ gym.description }}</p>
+              <div class="gym-meta">
+                <span>Aulas de {{ gym.classDuration }} min</span>
+                <span class="gym-price">
+                  {{ gym.monthlyPrice | currency: 'BRL' : 'symbol' : '1.0-0' : 'pt-BR' }}
+                  <small>/mês</small>
+                </span>
+              </div>
+              <div class="gym-actions">
+                <button type="button" class="button button-secondary" (click)="selectGym(gym)">
+                  Ver detalhes
+                </button>
+                <button type="button" class="button button-primary" (click)="reserve(gym)">
+                  Reservar aula
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+
+        <app-pagination
+          [totalPages]="totalPages()"
+          [currentPage]="currentPage()"
+          (pageChange)="changePage($event)"
+        ></app-pagination>
+      } @else {
+        <div class="empty-state">
+          <p>Nenhuma academia encontrada com esses filtros.</p>
+          <span>Tente outro nome ou escolha outro bairro.</span>
+        </div>
+      }
+    </section>
+
+    <section class="details-section">
+      <div class="details-panel">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Conheça de perto</p>
+            <h2>{{ selectedGym().name }}</h2>
+          </div>
+          <span class="details-neighborhood">{{ selectedGym().neighborhood }}</span>
+        </div>
+        <app-tabs [tabs]="detailTabs()"></app-tabs>
+      </div>
+
+      <aside class="reservation-panel">
+        <p class="eyebrow">Sua reserva</p>
+        <h2>Pronto para treinar?</h2>
+        <p class="reservation-gym">
+          {{ selectedGym().name }}
+          <span>{{ selectedGym().neighborhood }}</span>
+        </p>
+        <app-progress-bar [value]="progress()" label="Progresso do envio"></app-progress-bar>
+        <p class="reservation-status">{{ progressStatus() }}</p>
+        <p class="reservation-hint">
+          Escolha uma academia na lista e clique em “Reservar aula”. O envio leva poucos segundos.
+        </p>
+      </aside>
+    </section>
+
+    <section class="faq-section">
+      <div class="faq-heading">
+        <p class="eyebrow">Dúvidas frequentes</p>
+        <h2>Tudo sobre sua reserva</h2>
+        <p class="faq-intro">
+          As respostas para as perguntas mais comuns de quem treina com a FitSalvador.
+        </p>
+      </div>
+      <app-accordion [items]="faqItems"></app-accordion>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="brand">
+      <span class="brand-mark">FS</span>
+      <span class="brand-name">Fit<span>Salvador</span></span>
+    </div>
+    <p>Reservas de academia em Salvador, Bahia.</p>
+    <span>Projeto fictício para fins acadêmicos.</span>
+  </footer>
+
+  <app-toast />
+</div>

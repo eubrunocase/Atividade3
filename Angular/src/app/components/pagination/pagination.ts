@@ -1,0 +1,24 @@
+import { Component, computed, input, output } from '@angular/core';
+
+@Component({
+  selector: 'app-pagination',
+  templateUrl: './pagination.html',
+  styleUrl: './pagination.css',
+})
+export class Pagination {
+  readonly totalPages = input.required<number>();
+  readonly currentPage = input.required<number>();
+  readonly pageChange = output<number>();
+
+  protected readonly pages = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, index) => index + 1),
+  );
+
+  protected goTo(page: number): void {
+    if (page < 1 || page > this.totalPages() || page === this.currentPage()) {
+      return;
+    }
+
+    this.pageChange.emit(page);
+  }
+}

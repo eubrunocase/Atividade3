@@ -1,0 +1,26 @@
+<div class="tabs">
+  <div class="tabs-list" role="tablist" aria-label="Conteúdo das abas">
+    @for (tab of tabs(); track tab.label; let index = $index) {
+      <button
+        type="button"
+        class="tabs-tab"
+        role="tab"
+        [class.is-active]="activeIndex() === index"
+        [attr.aria-selected]="activeIndex() === index"
+        (click)="selectTab(index)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  @if (activeTab(); as tab) {
+    <div class="tabs-panel" role="tabpanel">
+      <ul>
+        @for (line of tab.content; track $index) {
+          <li>{{ line }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>

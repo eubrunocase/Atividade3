@@ -1,0 +1,34 @@
+<nav class="pagination" aria-label="Paginação de academias">
+  <button
+    type="button"
+    class="pagination-control"
+    [disabled]="currentPage() === 1"
+    (click)="goTo(currentPage() - 1)"
+  >
+    Anterior
+  </button>
+
+  <div class="pagination-pages">
+    @for (page of pages(); track $index) {
+      <button
+        type="button"
+        class="pagination-page"
+        [class.is-active]="page === currentPage()"
+        [attr.aria-current]="page === currentPage() ? 'page' : null"
+        [attr.aria-label]="'Página ' + page"
+        (click)="goTo(page)"
+      >
+        {{ page }}
+      </button>
+    }
+  </div>
+
+  <button
+    type="button"
+    class="pagination-control"
+    [disabled]="currentPage() === totalPages()"
+    (click)="goTo(currentPage() + 1)"
+  >
+    Próxima
+  </button>
+</nav>
